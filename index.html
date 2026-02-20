@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CoMit | premium coaching institute</title>
+  <!-- Font Awesome 6 (free) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    }
+
+    body {
+      background-color: #ffffff;
+      color: #1e293b;
+      line-height: 1.5;
+      overflow-x: hidden;
+    }
+
+    /* ---------- smooth fade animations ---------- */
+    .fade-section {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.8s cubic-bezier(0.2, 0.9, 0.3, 1), transform 0.8s cubic-bezier(0.2, 0.9, 0.3, 1);
+    }
+
+    .fade-section.appear {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* announcement strip – bold gradient */
+    .announcement {
+      background: linear-gradient(95deg, #2563eb 0%, #4f46e5 50%, #6d28d9 100%);
+      color: white;
+      text-align: center;
+      padding: 10px 20px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+    .announcement .line1 {
+      font-size: 1.1rem;
+      text-transform: uppercase;
+      word-spacing: 4px;
+    }
+    .announcement .line2 {
+      font-size: 0.9rem;
+      font-weight: 400;
+      opacity: 0.9;
+      margin-top: 2px;
+    }
+
+    /* ---------- sticky navbar ---------- */
+    .navbar {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(8px);
+      box-shadow: 0 10px 30px -10px rgba(37,99,235,0.15);
+      padding: 0.8rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      transition: all 0.2s;
+    }
+
+    .logo img {
+      height: 44px;
+      width: auto;
+      background: #dbeafe; /* placeholder visual */
+      border-radius: 10px;
+      padding: 4px 12px;
+      font-weight: 600;
+      con tent: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='40' viewBox='0 0 200 50'%3E%3Crect width='200' height='50' fill='%232563eb' rx='10'/%3E%3Ctext x='20' y='33' font-family='Arial' fill='white' font-weight='bold' font-size='22'%3E⚡CoMit%3C/text%3E%3C/svg%3E");
+    }
+
+    .nav-menu {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-menu li a {
+      text-decoration: none;
+      font-weight: 500;
+      color: #1e293b;
+      padding: 0.3rem 0;
+      position: relative;
+      transition: color 0.2s;
+    }
+
+    .nav-menu li a::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 0%;
+      height: 2.5px;
+      background: #2563eb;
+      transition: width 0.3s ease;
+      border-radius: 2px;
+    }
+
+    .nav-menu li a:hover::after {
+      width: 100%;
+    }
+
+    .nav-menu li a:hover {
+      color: #2563eb;
+    }
+
+    .login-btn {
+      background: #2563eb;
+      color: white !important;
+      padding: 0.6rem 1.5rem !important;
+      border-radius: 40px;
+      font-weight: 600;
+      box-shadow: 0 8px 18px -6px #2563eb;
+      transition: all 0.2s;
+    }
+    .login-btn:hover {
+      background: #1d4ed8;
+      transform: scale(1.02);
+      box-shadow: 0 12px 22px -8px #2563eb;
+    }
+    .login-btn::after {
+      display: none !important;
+    }
+
+    .hamburger {
+      display: none;
+      font-size: 2rem;
+      color: #2563eb;
+      cursor: pointer;
+    }
+
+    /* ---------- hero ---------- */
+    .hero {
+      padding: 4rem 2rem;
+      max-width: 1300px;
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 3rem;
+      position: relative;
+    }
+
+    /* light abstract shapes */
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 10% 30%, #dbeafe60 0%, transparent 30%),
+                  radial-gradient(circle at 90% 70%, #e0e7ff80 0%, transparent 35%),
+                  radial-gradient(circle at 30% 80%, #ede9fe60 0%, transparent 40%);
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    .hero-left {
+      flex: 1 1 400px;
+      animation: fadeSlideUp 0.9s ease-out;
+    }
+
+    .hero-left h1 {
+      font-size: 3.2rem;
+      font-weight: 700;
+      line-height: 1.2;
+      background: linear-gradient(135deg, #1e293b 0%, #2563eb 80%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero-left .subhead {
+      font-size: 1.3rem;
+      font-weight: 500;
+      color: #2563eb;
+      margin-top: 1rem;
+    }
+
+    .hero-left p {
+      font-size: 1.1rem;
+      color: #475569;
+      margin: 1.2rem 0 2rem;
+      max-width: 500px;
+    }
+
+    .cta-btns {
+      display: flex;
+      gap: 1.2rem;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      background: linear-gradient(145deg, #2563eb, #3b82f6);
+      color: white;
+      border: none;
+      padding: 0.9rem 2.2rem;
+      border-radius: 60px;
+      font-weight: 600;
+      font-size: 1.1rem;
+      box-shadow: 0 12px 22px -10px #2563eb;
+      transition: all 0.3s;
+      cursor: pointer;
+    }
+    .btn-primary:hover {
+      box-shadow: 0 20px 30px -8px #2563eb;
+      transform: translateY(-3px);
+    }
+
+    .btn-secondary {
+      background: white;
+      border: 2px solid #2563eb;
+      color: #2563eb;
+      padding: 0.9rem 2.2rem;
+      border-radius: 60px;
+      font-weight: 600;
+      font-size: 1.1rem;
+      transition: all 0.3s;
+      cursor: pointer;
+    }
+    .btn-secondary:hover {
+      background: #dbeafe;
+      transform: scale(1.02) translateY(-2px);
+      box-shadow: 0 10px 20px -5px #2563eb50;
+    }
+
+    .hero-right {
+      flex: 1 1 300px;
+      display: flex;
+      justify-content: center;
+      animation: float 4s ease-in-out infinite;
+    }
+
+    .hero-right img {
+      max-width: 100%;
+      width: 400px;
+      border-radius: 30px;
+      box-shadow: 0 30px 40px -20px #1e293b;
+      background: #dbeafe;
+      cont ent: u  rl("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='350' viewBox='0 0 400 350'%3E%3Crect width='400' height='350' fill='%23dbeafe' rx='30'/%3E%3Ccircle cx='200' cy='130' r='60' fill='%232563eb'/%3E%3Crect x='120' y='210' width='160' height='100' fill='%236d28d9' rx='20'/%3E%3Ctext x='160' y='280' fill='white' font-size='22' font-weight='bold'%3Estudy%3C/text%3E%3C/svg%3E");
+    }
+
+    @keyframes float {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-12px); }
+      100% { transform: translateY(0px); }
+    }
+
+    @keyframes fadeSlideUp {
+      0% { opacity: 0; transform: translateY(30px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    /* trust section */
+    .trust {
+      padding: 4rem 2rem;
+      background: white;
+    }
+
+    .trust .headline {
+      font-size: 2.5rem;
+      font-weight: 600;
+      text-align: center;
+      max-width: 800px;
+      margin: 0 auto 1rem;
+      color: #1e293b;
+    }
+
+    .trust .sub {
+      text-align: center;
+      color: #475569;
+      margin-bottom: 3.5rem;
+      font-size: 1.2rem;
+    }
+
+    .feature-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      justify-content: center;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .feature-card {
+      background: white;
+      padding: 2rem 2rem 2.5rem;
+      border-radius: 30px;
+      box-shadow: 0 20px 30px -10px #b0c4de50;
+      flex: 1 1 250px;
+      text-align: center;
+      transition: all 0.3s cubic-bezier(0.2,0,0,1);
+    }
+
+    .feature-card:hover {
+      transform: translateY(-15px);
+      box-shadow: 0 35px 40px -15px #2563eb70;
+    }
+
+    .feature-card i {
+      font-size: 3rem;
+      color: #2563eb;
+      margin-bottom: 1.2rem;
+    }
+
+    .feature-card h3 {
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    /* courses */
+    .courses {
+      background: #f5f9ff;
+      padding: 4rem 2rem;
+    }
+
+    .section-title {
+      font-size: 2.5rem;
+      font-weight: 600;
+      text-align: center;
+      margin-bottom: 3rem;
+      color: #1e293b;
+    }
+
+    .course-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      justify-content: center;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .course-card {
+      background: white;
+      border-radius: 30px;
+      overflow: hidden;
+      box-shadow: 0 10px 25px -8px #94a3b8;
+      flex: 1 1 280px;
+      max-width: 320px;
+      transition: all 0.4s ease;
+    }
+
+    .course-card:hover {
+      transform: translateY(-15px) scale(1.02);
+      box-shadow: 0 35px 35px -12px #2563eb80;
+    }
+
+    .course-card img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      background: #6d28d9;
+      con tent: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='180'%3E%3Crect width='300' height='180' fill='%236d28d9'/%3E%3Ctext x='70' y='100' fill='white' font-size='28'%3E📚%3C/text%3E%3C/svg%3E");
+    }
+
+    .course-info {
+      padding: 1.8rem 1.5rem;
+    }
+
+    .course-info h3 {
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .course-info p {
+      color: #475569;
+      margin: 0.8rem 0;
+    }
+
+    .enroll-btn {
+      background: #2563eb;
+      color: white;
+      border: none;
+      padding: 0.7rem 1.8rem;
+      border-radius: 40px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .enroll-btn:hover {
+      background: #1e4fbe;
+      box-shadow: 0 10px 20px -5px #2563eb;
+    }
+
+    /* testimonials */
+    .testimonials {
+      padding: 4rem 2rem;
+      background: white;
+    }
+
+    .testi-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      justify-content: center;
+    }
+
+    .testi-card {
+      background: #f8fafc;
+      border-radius: 30px;
+      padding: 2rem;
+      max-width: 320px;
+      box-shadow: 0 15px 25px -10px #cbd5e1;
+      transition: 0.2s;
+    }
+
+    .testi-card img {
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      background: #dbeafe;
+      con tent: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='70' height='70' viewBox='0 0 70 70'%3E%3Ccircle cx='35' cy='35' r='35' fill='%232563eb'/%3E%3Ctext x='20' y='50' fill='white' font-size='40'%3E👤%3C/text%3E%3C/svg%3E");
+    }
+
+    .stars i {
+      color: #fbbf24;
+      margin-right: 3px;
+    }
+
+    /* updates */
+    .updates {
+      background: #f5f9ff;
+      padding: 4rem 2rem;
+    }
+
+    .update-cards {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.8rem;
+      justify-content: center;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .update-item {
+      background: white;
+      border-left: 6px solid #2563eb;
+      border-radius: 24px;
+      padding: 1.8rem;
+      flex: 1 1 200px;
+      box-shadow: 0 10px 15px -8px #b1c9f0;
+      transition: 0.2s;
+    }
+    .update-item:hover {
+      transform: scale(1.02) translateY(-5px);
+      box-shadow: 0 25px 30px -12px #2563eb;
+    }
+    .update-item h4 {
+      font-size: 1.4rem;
+      margin-bottom: 0.4rem;
+    }
+    .read-more {
+      color: #2563eb;
+      font-weight: 600;
+      text-decoration: none;
+      display: inline-block;
+      margin-top: 1rem;
+    }
+
+    /* CTA */
+    .cta-section {
+      background: linear-gradient(120deg, #2563eb, #6d28d9);
+      padding: 5rem 2rem;
+      text-align: center;
+    }
+    .cta-section h2 {
+      font-size: 2.6rem;
+      color: white;
+      margin-bottom: 2rem;
+    }
+    .cta-glow-btn {
+      background: white;
+      border: none;
+      padding: 1.2rem 3rem;
+      border-radius: 60px;
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: #2563eb;
+      box-shadow: 0 0 20px #ffffff80;
+      transition: all 0.3s;
+      cursor: pointer;
+    }
+    .cta-glow-btn:hover {
+      box-shadow: 0 0 40px white, 0 10px 25px -5px #1e293b;
+      transform: scale(1.05);
+      background: #f0f9ff;
+    }
+
+    /* footer */
+    .footer {
+      background: white;
+      padding: 3rem 2rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 3rem;
+      justify-content: space-around;
+      border-top: 2px solid #dbeafe;
+    }
+    .footer-col h4 {
+      color: #2563eb;
+      margin-bottom: 1.2rem;
+      font-size: 1.3rem;
+    }
+    .footer-col ul {
+      list-style: none;
+    }
+    .footer-col li, .footer-col a {
+      color: #334155;
+      margin-bottom: 0.7rem;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .footer-col a:hover {
+      color: #2563eb;
+    }
+    .social-icons i {
+      font-size: 1.8rem;
+      margin-right: 1rem;
+      color: #2563eb;
+      transition: all 0.2s;
+    }
+    .social-icons i:hover {
+      color: #6d28d9;
+      transform: translateY(-5px);
+    }
+
+    /* responsive */
+    @media (max-width: 768px) {
+      .nav-menu {
+        display: none;
+        width: 100%;
+        flex-direction: column;
+        background: white;
+        padding: 2rem 0;
+        box-shadow: 0 10px 20px #ccc;
+        border-radius: 0 0 30px 30px;
+      }
+      .nav-menu.active {
+        display: flex;
+      }
+      .hamburger {
+        display: block;
+      }
+      .hero-left h1 {
+        font-size: 2.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- announcement strip -->
+  <div class="announcement">
+  
+    <div class="line1"> YOU HAVE. ENDLESS POSSIBILITIES.</div>
+	<img style="border-radius:70%; margin-right:00px;width:5%; padding-left:0px"src="logo.png">
+    <div class="line2">“Designed for students who mean it.”</div>
+  </div>
+
+  <!-- sticky navbar -->
+  <nav class="navbar">
+    <div class="logo"><img src="logo.png" alt="CoMit logo"></div>
+    <div class="hamburger"><i class="fas fa-bars"></i></div>
+    <ul class="nav-menu">
+      <li><a href="#">Home</a></li>
+      <li><a href="#">Courses</a></li>
+   
+      <li><a href="#">Updates</a></li>
+    
+      <li><a href="#" class="login-btn">Login / Register</a></li>
+    </ul>
+  </nav>
+
+  <!-- hero -->
+  <section class="hero fade-section">
+    <div class="hero-left">
+      <h1>Achieve Your Best in Maths & Science</h1>
+      <div class="subhead">Trusted & Affordable Education Platform for Future Toppers.</div>
+      <p>Personalized coaching •  years of experience • Live & recorded classes</p>
+      <div class="cta-btns">
+        <button class="btn-primary">Join Now</button>
+        <button class="btn-secondary">Book Free Trial</button>
+      </div>
+    </div>
+    <div class="hero-right">
+      <img src="logo.png" alt="hero student">
+    </div>
+  </section>
+
+  <!-- trust section -->
+  <section class="trust fade-section">
+    <h2 class="headline"> A Trusted & Affordable Educational Platform</h2>
+    <p class="sub"> A Lot of students have trusted us from Years</p>
+    <div class="feature-grid">
+      <div class="feature-card"><i class="fas fa-chalkboard-teacher"></i><h3>Expert Teachers</h3><p>Math, Science, English and SST & experienced faculty</p></div>
+      <div class="feature-card"><i class="fas fa-book-open"></i><h3>Updated Study Material</h3><p>latest pattern & topic-wise worksheets</p></div>
+      <div class="feature-card"><i class="fas fa-rupee-sign"></i><h3>Affordable Fees</h3><p>scholarships & easy installments</p></div>
+    </div>
+  </section>
+
+  <!-- courses -->
+  <section class="courses fade-section">
+    <h2 class="section-title">Our Popular Courses</h2>
+    <div class="course-grid">
+      <div class="course-card"><img src="img1.jpg" alt="course"><div class="course-info"><h3>Lower classes</h3><p>full syllabus + test series</p><button class="enroll-btn">Enroll Now</button></div></div>
+      <div class="course-card"><img src="img2.png" alt="course"><div class="course-info"><h3>Explation by 3D Animation</h3><p>biology master classes</p><button class="enroll-btn">Enroll Now</button></div></div>
+      <div class="course-card"><img src="img4.jpg" alt="course"><div class="course-info"><h3>NCERT</h3><p>for class 9-10, all boards</p><button class="enroll-btn">Enroll Now</button></div></div>
+    </div>
+  </section>
+
+  <!-- testimonials -->
+  <section class="testimonials fade-section">
+    <h2 class="section-title">What Our Students Say</h2>
+    <div class="testi-grid">
+      <div class="testi-card"><img src="https://images.pexels.com/photos/1181686/pexels-photo-1181686.jpeg" alt="student"><h4>Anjali Sharma</h4><div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div><p>“Teachers are amazing, concept clarity is next level.”</p></div>
+      <div class="testi-card"><img src="anshesh.jpg" alt="student"><h4>Anshesh Rajawat</h4><div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div><p>“Study material and test series helped me to Solve complex problam.”</p></div>
+      <div class="testi-card"><img src="https://images.pexels.com/photos/1595391/pexels-photo-1595391.jpeg" alt="student"><h4>Ishita Roy</h4><div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div><p>“affordable fees & personal attention. thank you DRC Acadimy”</p></div>
+    </div>
+  </section>
+
+  <!-- updates -->
+  <section class="updates fade-section">
+    <h2 class="section-title">Latest Updates</h2>
+    <div class="update-cards">
+      <div class="update-item"><h4>📅 New Batch Starting Soon</h4><p>April : 2026 - 2027 batch</p><a href="#" class="read-more">Read more →</a></div>
+      <div class="update-item"><h4>📄 Model Papers Uploaded</h4><p>Board 2026 sample papers out</p><a href="#" class="read-more">Read more →</a></div>
+      <div class="update-item"><h4>📝 Homework & Notes Updated</h4><p>weekly worksheets available</p><a href="#" class="read-more">Read more →</a></div>
+      <div class="update-item"><h4>🏅 New Toppers Announced</h4><p>**********</p><a href="#" class="read-more">Read more →</a></div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section">
+    <h2>Ready to Start Your Success Journey?</h2>
+    <button class="cta-glow-btn">Register Today</button>
+  </section>
+
+  <!-- footer -->
+  <footer class="footer">
+    <div class="footer-col"><h4>Quick Links</h4><ul><li>Home</li><li>Courses</li><li>Results</li><li>Contact</li></ul></div>
+    <div class="footer-col"><h4>Courses</h4><ul><li>JEE Advanced</li><li>NEET</li><li>Foundation</li><li>Pre-Nurture</li></ul></div>
+    <div class="footer-col"><h4>Contact Info</h4><ul><li><i class="fas fa-map-marker-alt"></i> 24/5 Rajpath, Delhi</li><li>info@comit.org</li><li>+91 98765 43210</li></ul></div>
+    <div class="footer-col"><h4>Follow Us</h4><div class="social-icons"><i class="fab fa-facebook"></i><i class="fab fa-instagram"></i><i class="fab fa-youtube"></i><i class="fab fa-linkedin"></i></div></div>
+  </footer>
+
+  <script>
+    // mobile hamburger
+    document.querySelector('.hamburger').addEventListener('click', function() {
+      document.querySelector('.nav-menu').classList.toggle('active');
+    });
+
+    // Intersection Observer for smooth fade on scroll
+    const faders = document.querySelectorAll('.fade-section');
+    const appearOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
+    const appearOnScroll = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add('appear');
+        observer.unobserve(entry.target);
+      });
+    }, appearOptions);
+
+    faders.forEach(section => appearOnScroll.observe(section));
+
+    // force hero to appear immediately (already visible, but add class for safety)
+    window.addEventListener('load', () => {
+      document.querySelector('.hero').classList.add('appear');
+    });
+  </script>
+  <!-- extra touch: background subtle gradients behind white sections (already present in hero & courses) -->
+</body>
+</html>
